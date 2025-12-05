@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Căutare Auto - Proiect Web Scraping</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>Căutare Auto</h1>
+            <p>Filtrează baza de date colectată de pe Autovit</p>
+        </header>
+
+        <div class="filter-panel">
+            
+            <div class="filter-row">
+                <div class="filter-group">
+                    <label>Marcă</label>
+                    <select id="Marca" onchange="incarcaModele()">
+                        <option value="">Toate Mărcile</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label>Model</label>
+                    <select id="Model" disabled>
+                        <option value="">Alege întâi Marca</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="filter-row">
+                <div class="filter-group">
+                    <label>Combustibil</label>
+                    <select id="Combustibil"><option value="">Oricare</option></select>
+                </div>
+                <div class="filter-group">
+                    <label>Cutie Viteze</label>
+                    <select id="Tip_cutie_viteze"><option value="">Oricare</option></select>
+                </div>
+                <div class="filter-group">
+                    <label>Caroserie</label>
+                    <select id="Tip_Caroserie"><option value="">Oricare</option></select>
+                </div>
+            </div>
+
+            <div class="ranges-grid">
+                <div class="range-box">
+                    <label>Preț (€)</label>
+                    <div class="inputs">
+                        <input type="number" id="Pret_min" placeholder="De la">
+                        <input type="number" id="Pret_max" placeholder="Până la">
+                    </div>
+                </div>
+                
+                <div class="range-box">
+                    <label>An Fabricație</label>
+                    <div class="inputs">
+                        <input type="number" id="An_fabricatie_min" placeholder="De la">
+                        <input type="number" id="An_fabricatie_max" placeholder="Până la">
+                    </div>
+                </div>
+
+                <div class="range-box">
+                    <label>Kilometraj</label>
+                    <div class="inputs">
+                        <input type="number" id="Km_min" placeholder="De la">
+                        <input type="number" id="Km_max" placeholder="Până la">
+                    </div>
+                </div>
+
+                <div class="range-box">
+                    <label>Putere (CP)</label>
+                    <div class="inputs">
+                        <input type="number" id="Putere_min" placeholder="De la">
+                        <input type="number" id="Putere_max" placeholder="Până la">
+                    </div>
+                </div>
+
+                 <div class="range-box">
+                    <label>Capacitate Cilindrică (cm3)</label>
+                    <div class="inputs">
+                        <input type="number" id="Capacitate_Cilindrica_min" placeholder="De la">
+                        <input type="number" id="Capacitate_Cilindrica_max" placeholder="Până la">
+                    </div>
+                </div>
+            </div>
+
+            <button onclick="cautaAnunturi()" class="btn-search">🔍 Caută Mașini</button>
+        </div>
+
+        <div id="loading" style="display:none;">Se caută în baza de date...</div>
+        <div id="rezultate-container" class="results-grid">
+            </div>
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
