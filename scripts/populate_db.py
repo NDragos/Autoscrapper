@@ -15,7 +15,16 @@ db = client['ProiectAutovit'] # Numele bazei de date
 collection = db['Anunturi']   # Numele colectiei (tabelului)
 
 # 2. Citire fisier CSV
-csv_path = os.path.join(os.path.dirname(__file__), '..', 'data', 'date_autovit_test.csv')
+import sys
+if len(sys.argv) > 1:
+    # Use filename provided in command line
+    filename = sys.argv[1]
+else:
+    # Default fallback
+    filename = 'date_autovit_test.csv'
+
+print(f"Loading data from: {filename}")
+csv_path = os.path.join(os.path.dirname(__file__), '..', 'data', filename)
 df = pd.read_csv(csv_path)
 
 # 3. PRELUCRARE CRITICA (Data Type Casting)

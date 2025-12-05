@@ -179,3 +179,17 @@ def scrape_autovit(make, model):
         driver.quit()
 
     with open(data_path, mode = 'w', newline='', encoding='utf-8') as file:
+        writer = csv.DictWriter(file, fieldnames=fieldname)
+        # writer.writeheader()
+        writer.writerows(data_list)
+    
+    print(f"Successfully saved {len(data_list)} cars to {data_csv}")
+
+if __name__ == "__main__":
+    import sys
+    if len(sys.argv) > 2:
+        # Use arguments if provided: python scrapper.py bmw x5
+        scrape_autovit(sys.argv[1], sys.argv[2])
+    else:
+        # Default fallback
+        scrape_autovit("dacia", "sandero")
