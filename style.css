@@ -40,7 +40,7 @@ select, input {
 }
 .inputs { display: flex; gap: 5px; }
 
-/* Butonul */
+/* Buton search */
 .btn-search {
     width: 100%;
     padding: 15px;
@@ -85,3 +85,12 @@ select, input {
     font-weight: bold;
 }
 .car-link:hover { background: #bbdefb; }
+
+#total-rezultate {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-top: 10px;
+    padding-left: 5px;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 10px;
+}

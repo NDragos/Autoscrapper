@@ -57,14 +57,16 @@ async function cautaAnunturi() {
     const btn = document.querySelector('.btn-search');
     const loading = document.getElementById('loading');
     const container = document.getElementById('rezultate-container');
+    const totalRezultate = document.getElementById('total-rezultate'); // Elementul nou
     
-    // UI Update
+    // UI Update - Resetam totul cand incepe cautarea
     btn.disabled = true;
     loading.style.display = 'block';
     container.innerHTML = '';
+    totalRezultate.style.display = 'none'; // Ascundem contorul vechi
+    totalRezultate.textContent = '';
 
     // Colectam datele din inputuri
-    // Luam doar ce a completat utilizatorul (ignoram campurile goale)
     const filtre = {};
     const ids = [
         'Marca', 'Model', 'Combustibil', 'Tip_cutie_viteze', 'Tip_Caroserie',
@@ -81,7 +83,6 @@ async function cautaAnunturi() {
     });
 
     try {
-        // Trimitem POST catre server
         const response = await fetch(`${API_URL}/cauta`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -89,8 +90,18 @@ async function cautaAnunturi() {
         });
 
         const data = await response.json();
+        
+        // Afisam numarul de rezultate
+        totalRezultate.style.display = 'block';
+        if (data.rezultate.length === 0) {
+             totalRezultate.textContent = `Nu am găsit niciun anunț conform filtrelor.`;
+             totalRezultate.style.color = 'red';
+        } else {
+             totalRezultate.textContent = `Am găsit ${data.numar_rezultate} anunțuri:`;
+             totalRezultate.style.color = '#0056b3';
+        }
 
-        // Afisam rezultatele
+        // Generam cardurile
         if (data.succes && data.rezultate.length > 0) {
             data.rezultate.forEach(masina => {
                 const card = `
@@ -108,8 +119,6 @@ async function cautaAnunturi() {
                 `;
                 container.innerHTML += card;
             });
-        } else {
-            container.innerHTML = '<p style="grid-column: 1/-1; text-align: center;">Nu s-au găsit anunțuri conform filtrelor.</p>';
         }
 
     } catch (err) {
