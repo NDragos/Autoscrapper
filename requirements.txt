@@ -1,0 +1,7 @@
+selenium
+pandas
+pymongo
+flask
+flask-cors
+python-dotenv
+webdriver-manager
