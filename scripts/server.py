@@ -1,6 +1,11 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 from backend_autovit import AutovitBackend
+import os
+from dotenv import load_dotenv
+
+# Incarca variabilele din fisierul .env
+load_dotenv(os.path.join(os.path.dirname(__file__), '..', '.env'))
 
 # --- CONFIGURARE ---
 app = Flask(__name__)
@@ -9,7 +14,7 @@ CORS(app)
 
 # Conectarea la baza de date (Initializeaza clasa ta)
 # Inlocuieste cu string-ul tau real
-CONNECTION_STRING = "mongodb+srv://mario:Jt.uipT19VRLa7m@cluster0.rvoavsc.mongodb.net/?appName=Cluster0"
+CONNECTION_STRING = os.getenv("MONGO_URI")
 backend = AutovitBackend(CONNECTION_STRING)
 
 # --- ENDPOINT 1: POPULARE DROPDOWN-URI ---

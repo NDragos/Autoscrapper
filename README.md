@@ -49,6 +49,55 @@ git clone https://github.com/NDragos/Autoscrapper.git
 cd Autoscrapper
 ```
 
+2. Create a virtual environment (optional but recommended):
+```bash
+python -m venv .venv
+# Windows
+.venv\Scripts\activate
+# Linux/Mac
+source .venv/bin/activate
+```
+
+3. Install dependencies:
+```bash
+pip install -r requirements.txt
+```
+
+4. Configure environment variables:
+   - A `.env` file has been created for you with a default MongoDB connection string.
+   - **Security Note:** Never commit your real production secrets to version control.
+
+## Usage
+
+### 1. Scraping Data
+Run the scraper to collect data from Autovit.
+```bash
+cd scripts
+python scrapper.py
+```
+This will generate CSV files in the `data/` directory (e.g., `daciasandero.csv`).
+*Note: You can modify the `scrape_autovit` call at the bottom of `scripts/scrapper.py` to scrape different car models.*
+
+### 2. Populating the Database
+Import the scraped CSV data into MongoDB.
+```bash
+cd scripts
+python populate_db.py
+```
+This script reads `data/date_autovit_test.csv` (or your scraped file if you update the script) and uploads it to the MongoDB collection specified in `.env`.
+
+### 3. Running the Backend Server
+Start the Flask API server.
+```bash
+cd scripts
+python server.py
+```
+The server will start (usually on `http://127.0.0.1:5000`), serving endpoints like `/api/optiuni` and `/api/cauta`.
+
+### 4. Frontend
+Open `website/index.html` in your browser to interact with the application.
+
+
 2. Create a virtual environment (recommended):
 ```bash
 python -m venv venv

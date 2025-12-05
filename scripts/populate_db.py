@@ -1,16 +1,22 @@
 import pandas as pd
 from pymongo import MongoClient
+import os
+from dotenv import load_dotenv
+
+# Incarca variabilele din fisierul .env
+load_dotenv(os.path.join(os.path.dirname(__file__), '..', '.env'))
 
 # 1. Configurare conexiune MongoDB
 # INLOCUIESTE AICI cu string-ul tau de conectare din Atlas
-CONNECTION_STRING = "mongodb+srv://mario:Jt.uipT19VRLa7m@cluster0.rvoavsc.mongodb.net/?appName=Cluster0"
+CONNECTION_STRING = os.getenv("MONGO_URI")
 
 client = MongoClient(CONNECTION_STRING)
 db = client['ProiectAutovit'] # Numele bazei de date
 collection = db['Anunturi']   # Numele colectiei (tabelului)
 
 # 2. Citire fisier CSV
-df = pd.read_csv('date_autovit_test.csv')
+csv_path = os.path.join(os.path.dirname(__file__), '..', 'data', 'date_autovit_test.csv')
+df = pd.read_csv(csv_path)
 
 # 3. PRELUCRARE CRITICA (Data Type Casting)
 # Chiar daca datele sunt "curate", CSV-ul le citeste uneori ca text.
